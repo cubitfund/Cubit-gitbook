@@ -1,0 +1,8 @@
+.env
+.env.*
+node_modules
+_book
+*.log
+*.map
+**/broadcast/**
+**/.git/**

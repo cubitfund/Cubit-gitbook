@@ -1,0 +1,17 @@
+{
+  "title": "CUBIT — Le guide du protocole",
+  "description": "Comprendre les taxes, la bande de liquidité, les murs et les modules CUBIT. Documentation française avec statuts explicites.",
+  "language": "fr",
+  "author": "CUBIT",
+  "root": "./docs",
+  "plugins": ["-sharing", "-fontsettings"],
+  "pluginsConfig": {
+    "theme-default": { "showLevel": false },
+    "lunr": { "maxIndexSize": 2000000 }
+  },
+  "styles": { "website": "assets/cubit.css", "print": "assets/print.css" },
+  "variables": {
+    "revisionDate": "10 septembre 2026",
+    "status": "Révision en cours"
+  }
+}

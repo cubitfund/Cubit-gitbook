@@ -1,0 +1,93 @@
+{% extends template.self %}
+
+{% block head %}
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#f5f1e8">
+<link rel="icon" type="image/svg+xml" href="{{ 'assets/favicon.svg' | resolveFile }}">
+{% if page.next and page.next.path %}<link rel="next" href="{{ page.next.path | resolveFile }}">{% endif %}
+{% if page.previous and page.previous.path %}<link rel="prev" href="{{ page.previous.path | resolveFile }}">{% endif %}
+{% endblock %}
+
+{% block body %}
+<a class="skip-link" href="#article-body">{{ book.ui.skipContent }}</a>
+<header class="site-header">
+  <a class="wordmark" href="{{ '/' | resolveFile }}" aria-label="{{ book.ui.homeLabel }}">cubit<span aria-hidden="true"></span></a>
+  <span class="header-divider" aria-hidden="true"></span>
+  <span class="header-title">{{ book.ui.guide }}</span>
+  <nav class="header-links" aria-label="{{ book.ui.primaryNav }}">
+    <a href="{{ 'roadmap.md' | resolveFile }}">{{ book.ui.roadmap }}</a>
+    <a href="{{ 'securite/etat.md' | resolveFile }}" class="header-status"><span aria-hidden="true"></span>{{ book.ui.revisionStatus }}</a>
+  </nav>
+  <div class="language-selector">
+    <button type="button" class="lang-toggle" aria-haspopup="listbox" aria-expanded="false" aria-controls="cubit-languages" aria-label="{{ book.ui.chooseLanguage }}">
+      <img class="lang-flag" src="/flags/{{ book.locale.flag }}.svg" alt="" width="18" height="13">
+      <span class="lang-current-name" lang="{{ book.locale.tag }}">{{ book.locale.name }}</span><span aria-hidden="true">▾</span>
+    </button>
+    <ul id="cubit-languages" class="lang-menu" role="listbox" aria-label="{{ book.ui.language }}" hidden>
+      {% for option in book.locales %}
+      <li role="presentation"><button type="button" role="option" class="lang-option{% if option.id == book.locale.id %} active{% endif %}" data-language="{{ option.id }}" aria-selected="{% if option.id == book.locale.id %}true{% else %}false{% endif %}" tabindex="-1" lang="{{ option.tag }}"><img class="lang-flag" src="/flags/{{ option.flag }}.svg" alt="" width="18" height="13" loading="lazy" decoding="async"><span>{{ option.name }}</span></button></li>
+      {% endfor %}
+    </ul>
+  </div>
+  <button class="mobile-menu" type="button" aria-expanded="false" aria-controls="cubit-sidebar" aria-label="{{ book.ui.openSummary }}"><span aria-hidden="true">☰</span></button>
+</header>
+{{ super() }}
+{% endblock %}
+
+{% block book_sidebar %}
+<div class="sidebar-intro"><span>{{ book.ui.documentation }}</span><span class="lang-tag">{{ book.locale.id | upper }}</span></div>
+{{ super() }}
+<div class="sidebar-note"><span class="micro-label">{{ book.ui.edition }}</span><p>{{ book.ui.editionNote }}</p></div>
+{% endblock %}
+
+{% block search_input %}
+<div id="book-search-input" role="search">
+  <label class="sr-only" for="cubit-search">{{ book.ui.searchLabel }}</label>
+  <span class="search-symbol" aria-hidden="true">⌕</span>
+  <input id="cubit-search" type="search" placeholder="{{ book.ui.searchPlaceholder }}" autocomplete="off" spellcheck="false" aria-controls="cubit-search-results">
+  <kbd aria-hidden="true">/</kbd>
+</div>
+<button class="mobile-search-results" type="button">{{ book.ui.showResults }} →</button>
+{% endblock %}
+
+{% block page %}
+<div class="page-meta"><span>{{ page.section | d(book.ui.guide) }}</span><span>{{ page.reading | d(book.ui.documentation) }}</span></div>
+<div class="doc-grid{% if page.home %} is-home{% endif %}">
+  <article id="article-body" tabindex="-1">
+    {{ super() }}
+    <div class="page-end">
+      <span class="micro-label">CUBIT / {{ book.revisionDate }}</span>
+      <a href="{{ 'sources.md' | resolveFile }}">{{ book.ui.sourceMethod }} <span aria-hidden="true">↗</span></a>
+    </div>
+    <nav class="page-pagination" aria-label="{{ book.ui.continueReading }}">
+      {% if page.previous and page.previous.path %}
+      <a href="{{ page.previous.path | resolveFile }}{{ page.previous.anchor }}" class="page-prev"><span>← {{ book.ui.previous }}</span><strong>{{ page.previous.title }}</strong></a>
+      {% endif %}
+      {% if page.next and page.next.path %}
+      <a href="{{ page.next.path | resolveFile }}{{ page.next.anchor }}" class="page-next"><span>{{ book.ui.next }} →</span><strong>{{ page.next.title }}</strong></a>
+      {% endif %}
+    </nav>
+  </article>
+  {% if not page.home %}
+  <aside class="doc-toc" aria-label="{{ book.ui.onThisPage }}"><p class="micro-label">{{ book.ui.onThisPage }}</p><nav id="on-this-page"></nav><div class="toc-edition">{{ book.ui.workingVersion }}<br>{{ book.ui.wallPolicy }}</div></aside>
+  {% endif %}
+</div>
+{% endblock %}
+
+{% block search_results %}
+<div id="cubit-search-results" class="markdown-section" hidden aria-live="polite">
+  <p class="micro-label">{{ book.ui.searchInGuide }}</p>
+  <h1 id="search-results-title" tabindex="-1"></h1>
+  <p id="search-results-hint"></p>
+  <ul class="search-results-list"></ul>
+</div>
+<div id="cubit-document">{{ super() }}</div>
+{% endblock %}
+
+{% block book_navigation %}{% endblock %}
+
+{% block javascript %}
+{{ super() }}
+<script id="cubit-i18n" type="application/json">{{ book.languageData | safe }}</script>
+<script src="{{ 'assets/cubit.js' | resolveFile }}"></script>
+{% endblock %}

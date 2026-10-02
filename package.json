@@ -1,0 +1,29 @@
+{
+  "name": "cubit-gitbook",
+  "version": "0.1.0",
+  "private": true,
+  "description": "CUBIT documentation in ten languages, built with HonKit.",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "dev": "node scripts/dev.mjs",
+    "build": "node scripts/build.mjs",
+    "preview": "node scripts/serve.mjs",
+    "check": "node scripts/check-build.mjs",
+    "test:browser": "playwright test",
+    "test:install": "playwright install chromium",
+    "test:i18n": "node --test tests/i18n.test.mjs"
+  },
+  "devDependencies": {
+    "@fontsource-variable/archivo": "5.3.0",
+    "@fontsource-variable/martian-mono": "5.3.0",
+    "@fontsource-variable/noto-sans-jp": "5.3.0",
+    "@fontsource-variable/noto-sans-kr": "5.3.0",
+    "@fontsource-variable/noto-sans-sc": "5.3.0",
+    "@playwright/test": "1.63.0",
+    "cheerio": "1.2.0",
+    "flag-icons": "7.5.0",
+    "honkit": "6.2.2"
+  }
+}

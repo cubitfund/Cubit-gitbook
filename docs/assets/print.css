@@ -1,0 +1,6 @@
+body { color: #111312; background: #fff; font-family: sans-serif; }
+.site-header, .book-summary, .doc-toc, .page-pagination, .sidebar-shade, .skip-link, .wall-controls { display: none !important; }
+.book, .book-body, .body-inner, .page-wrapper, .page-inner { position: static !important; inset: auto !important; width: auto !important; overflow: visible !important; padding: 0 !important; }
+.doc-grid { display: block !important; }
+a { color: inherit; }
+pre, blockquote, table, .callout, .wall-lab { break-inside: avoid; }

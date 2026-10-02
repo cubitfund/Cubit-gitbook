@@ -1,0 +1,29 @@
+# CUBIT documentation (GitBook / HonKit) — public repository
+
+# Internal validation records, captures and scan outputs
+validation/
+
+
+# Secrets and local configuration
+.env
+.env.*
+*.local
+
+# Build output and dependencies
+node_modules/
+_book/
+docs/_book/
+.build/
+test-results/
+playwright-report/
+*.log
+.DS_Store
+
+# ---- from the original .gitignore ----
+node_modules/
+_book/
+docs/_book/
+test-results/
+playwright-report/
+.DS_Store
+.build/
